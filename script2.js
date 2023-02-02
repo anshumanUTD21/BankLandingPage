@@ -115,9 +115,43 @@ console.log(logo.dataset.versionNumber);
 //----------------------------------------------
 
 logo.classList.add('c','j');
-logo.classList.remove('');
-logo.classList.toggle('');
-logo.classList.contains('');
+// logo.classList.remove('');
+// logo.classList.toggle('');
+// logo.classList.contains('');
 
 //set classes //avoid using as it will remove all exisitng classes and remove all others
 // logo.className='jonas'
+
+//---------------------------------------------
+//Event types and event handlers------------------------------
+//---------------------------------------------
+
+//attaching the evenetlistener
+
+const h1=document.querySelector('h1');
+//addeventListenr allowes multiple function
+//we can also remove an eventlister if we don't need it
+const alertH1=(e)=>{
+    alert('addeventlistener: Great! You are reading the heading')
+    //here we only want to listen to event once we use removeeventlistener
+    // h1.removeEventListener('mouseenter',alertH1);
+}
+
+h1.addEventListener('mouseenter',alertH1);
+
+//removing eventlistener after certain time
+setTimeout(()=>{
+    h1.removeEventListener('mouseenter',alertH1);
+
+},3000)
+
+
+
+//on event property older method
+//on event doesn't  allowe multiple function
+h1.onmouseenter=(e)=>{
+    alert('addeventlistener: Great! You are reading the heading')
+}
+
+
+
