@@ -1,12 +1,13 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo=document.querySelector('.btn--scroll-to');
+const section1=document.querySelector('#section--1');
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -41,8 +42,6 @@ document.addEventListener('keydown', function (e) {
 
 //old way
 
-const btnScrollTo=document.querySelector('.btn--scroll-to');
-const section1=document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click',(e)=>{
   //getting the coordinates of section 1
@@ -73,8 +72,37 @@ btnScrollTo.addEventListener('click',(e)=>{
 
 //MODERN WAY- works in only modern browsers
   section1.scrollIntoView({behavior:'smooth'});
-
 })
+
+
+//-----------------------------
+//
+//Page Navigation --smooth navigation
+//
+//-----------------------------
+/*
+document.querySelectorAll('.nav__link').forEach(function(el){
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    const id=this.getAttribute('href');//used getAttribute to get the absolute href
+    document.querySelector(id).scrollIntoView({behavior:'smooth'})
+    console.log('link')
+  })
+})
+*/
+//now smooth navigation using Event deligation
+  //it needs two steps: 1) add event listener to the common paraent element 2) in that event listener find the element where evenet 
+  //originated
+
+  document.querySelector('.nav__links').addEventListener('click',function(e){
+    e.preventDefault();
+      
+    //e.target is where the event happend
+      if(e.target.classList.contains('nav__link')){
+         const id=e.target.getAttribute('href');
+         document.querySelector(id).scrollIntoView({behavior:'smooth'})
+      }
+  })
 
 
 
