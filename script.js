@@ -104,5 +104,23 @@ document.querySelectorAll('.nav__link').forEach(function(el){
       }
   })
 
+//-----------------------------
+//
+//tabbed components------------
+//
+//-----------------------------
+
+const tabs=document.querySelectorAll(".operations__tab");
+const tabsContainer=document.querySelector('.operations__tab-container');
+const tabsContent=document.querySelectorAll(".operations__content");
+
+tabsContainer.addEventListener('click',function(e){
+  //const clicked=e.target.parentElement;
+  //this will work for clicking on span but when we click on button itself it select div contaier
+  const clicked=e.target.closest('.operations__tab');
+  clicked.classList.add('operations__tab--actuve');
+  console.log(clicked)
+})
+
 
 
