@@ -71,5 +71,6 @@ console.log(h1.parentElement.children);//html collection
     }
 })
 
+//STICKY NAVIGATION INTERSECTION API
 
 

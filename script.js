@@ -15,6 +15,7 @@ const tabsContainer=document.querySelector('.operations__tab-container');
 const tabsContent=document.querySelectorAll(".operations__content");
 
 //FADE ANIMATION ELEMENTS
+const nav= document.querySelector('.nav');
 
 
 ///////////////////////////////////////
@@ -144,7 +145,6 @@ tabsContainer.addEventListener('click',function(e){
 //
 //-----------------------------
 
-const nav= document.querySelector('.nav');
 
 //creating a single fucntion to change the opacity back and forth [refactoring original code]
 const handleHover=function(e,opacity){
@@ -204,5 +204,38 @@ const handleHover=function(e,opacity){
 //})
 
 
+//-----------------------------
+//
+//Sticky Navigation------------
+//
+//-----------------------------
 
+/*
+ older but uneffecient method-------
+
+const initialCoords=section1.getBoundingClientRect(); //GETTING THE positon of 1st section from where ssticky needs to be added
+window.addEventListener('scroll',function(){
+  if(window.scrollY > initialCoords.top){
+    nav.classList.add('sticky');
+  }else{
+    nav.classList.remove('sticky')
+  }
+})
+*/
+//sticky navigation :intersection observer API
+
+const header=document.querySelector('.header');
+const navHeight=nav.getBoundingClientRect().height;
+
+const stickyNav=function(entries){
+  const [entry]=entries;
+  if(!entry.isIntersecting) nav.classList.add('sticky')
+  else{
+    nav.classList.remove('sticky')
+  }
+}
+
+const headerObserver=new IntersectionObserver(stickyNav,{root: null,threshold:0,rootMargin:`-${navHeight}px`})
+
+headerObserver.observe(header);
 
