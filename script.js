@@ -118,8 +118,18 @@ tabsContainer.addEventListener('click',function(e){
   //const clicked=e.target.parentElement;
   //this will work for clicking on span but when we click on button itself it select div contaier
   const clicked=e.target.closest('.operations__tab');
-  clicked.classList.add('operations__tab--actuve');
-  console.log(clicked)
+  //guard clause, when we get null for click event
+  if(!clicked)return;
+  //REMOVE active classes
+  tabs.forEach((t)=>t.classList.remove('operations__tab--active'));//this will first remove the active class from all tabs 
+  //applying active class
+  clicked.classList.add('operations__tab--active');//then here we put active class on the one we need to make active
+
+
+  //ACTIVATE CONTENT AREA
+  tabsContent.forEach((tc)=>tc.classList.remove('operations__content--active'))//remvoing active class from 
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active')//here we took dataset value from button 
+
 })
 
 
