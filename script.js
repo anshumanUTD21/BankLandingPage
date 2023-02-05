@@ -1,11 +1,22 @@
 'use strict';
-
+//MODEL COMPOENT ELEMENTS
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+
+//BTN COMPONENT ELEMENTS
 const btnScrollTo=document.querySelector('.btn--scroll-to');
 const section1=document.querySelector('#section--1');
+
+//TABBED COMPONENT ELEMENTS
+const tabs=document.querySelectorAll(".operations__tab");
+const tabsContainer=document.querySelector('.operations__tab-container');
+const tabsContent=document.querySelectorAll(".operations__content");
+
+//FADE ANIMATION ELEMENTS
+
+
 ///////////////////////////////////////
 // Modal window
 
@@ -110,10 +121,6 @@ document.querySelectorAll('.nav__link').forEach(function(el){
 //
 //-----------------------------
 
-const tabs=document.querySelectorAll(".operations__tab");
-const tabsContainer=document.querySelector('.operations__tab-container');
-const tabsContent=document.querySelectorAll(".operations__content");
-
 tabsContainer.addEventListener('click',function(e){
   //const clicked=e.target.parentElement;
   //this will work for clicking on span but when we click on button itself it select div contaier
@@ -129,8 +136,73 @@ tabsContainer.addEventListener('click',function(e){
   //ACTIVATE CONTENT AREA
   tabsContent.forEach((tc)=>tc.classList.remove('operations__content--active'))//remvoing active class from 
   document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active')//here we took dataset value from button 
-
 })
+
+//-----------------------------
+//
+//MENU FADE ANIMATION------------
+//
+//-----------------------------
+
+const nav= document.querySelector('.nav');
+
+//creating a single fucntion to change the opacity back and forth [refactoring original code]
+const handleHover=function(e,opacity){
+  if(e.target.classList.contains('nav__link')){
+    const link=e.target;
+    const sibiling=link.closest('.nav').querySelectorAll('.nav__link');
+    const logo=link.closest('.nav').querySelector('img');
+    sibiling.forEach((s)=>{
+      if( s !== link) s.style.opacity=this;
+    })
+    logo.style.opacity=this;
+}
+}
+
+
+//here we will use mouseove, here beacuse it bubbles unlike mouseenter
+//nav.addEventListener('mouseover',function(e){
+    //code after refactoring METHOD 1
+  //  handleHover(e,0.5);
+
+    //code before refactoring
+                      /*if(e.target.classList.contains('nav__link')){
+                        const link=e.target;
+                        const sibiling=link.closest('.nav').querySelectorAll('.nav__link');
+                        const logo=link.closest('.nav').querySelector('img');
+                        sibiling.forEach((s)=>{
+                          if( s !== link) s.style.opacity=0.5;
+                        })
+                        logo.style.opacity=0.5;
+                        } 
+                      */
+//})
+
+//CODE REFACTORING METHOD 2 [using bind]
+//passing 'argument' into handler
+    nav.addEventListener('mouseover',handleHover.bind(.5));
+
+//opposite of mouseover moueout
+    nav.addEventListener('mouseout',handleHover.bind(1))
+
+//nav.addEventListener('mouseout',function(e){
+ 
+  //handleHover(e,1);
+  
+  
+                        /* if(e.target.classList.contains('nav__link')){
+                          const link=e.target;
+                          const sibiling=link.closest('.nav').querySelectorAll('.nav__link');
+                          const logo=link.closest('.nav').querySelector('img');
+                          sibiling.forEach((s)=>{
+                            if( s !== link) s.style.opacity=1;
+                          })
+                          logo.style.opacity=1;
+                          }
+                        */
+
+//})
+
 
 
 
