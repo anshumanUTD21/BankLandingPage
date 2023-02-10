@@ -226,7 +226,7 @@ window.addEventListener('scroll',function(){
 
 const header=document.querySelector('.header');
 const navHeight=nav.getBoundingClientRect().height;
-
+ 
 const stickyNav=function(entries){
   const [entry]=entries;
   if(!entry.isIntersecting) nav.classList.add('sticky')
@@ -238,4 +238,43 @@ const stickyNav=function(entries){
 const headerObserver=new IntersectionObserver(stickyNav,{root: null,threshold:0,rootMargin:`-${navHeight}px`})
 
 headerObserver.observe(header);
+
+
+//-----------------------------
+// SHOW SECTION OF SCROLL EFFECT
+//-----------------------------
+
+const allSections=document.querySelectorAll('.section')
+
+
+const revealSection=function(entries,observe){
+  const [entry]=entries;
+  // console.log(entry)
+  if(!entry.isIntersecting) return ;
+  entry.target.classList.remove('section--hidden');
+  observe.unobserve(entry.target)
+}
+
+const sectionObserver=new IntersectionObserver(revealSection,{
+  root:null, 
+  threshold: 0.15
+});
+allSections.forEach(function(section){
+  sectionObserver.observe(section)
+  section.classList.add('section--hidden');
+})
+
+
+
+//-----------------------------
+//Lazy loading images feature
+//-----------------------------
+
+//selecting all the images with the data attribute of data-src
+const imgTarget=document.querySelectorAll('img[data-src]');
+console.log(imgTarget)
+
+
+
+
 
