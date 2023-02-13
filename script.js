@@ -272,9 +272,29 @@ allSections.forEach(function(section){
 
 //selecting all the images with the data attribute of data-src
 const imgTarget=document.querySelectorAll('img[data-src]');
-console.log(imgTarget)
+// console.log(imgTarget)
+const loadImg=function(entries,observer){
+  const[entry]=entries;
+  if(!entry.isIntersecting) return;
+
+  //replace src with data-src
+  entry.target.src=entry.target.dataset.src;
+  //removing lazy img class only after it is loaded
+  entry.target.addEventListener('load',function(){
+    entry.target.classList.remove('lazy-img');
+  })
+
+  observer.unobserve(entry.target);
+
+}
 
 
+const imgObserver=new IntersectionObserver(loadImg,{
+root:null,
+threshold:0,
+rootMargin:'200px',
+})
 
+imgTarget.forEach((img)=>imgObserver.observe(img))
 
 
